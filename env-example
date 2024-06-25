@@ -1,0 +1,2 @@
+API_URL=https://api.themoviedb.org/3/movie/popular?language=en-US&page=1
+API_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjU3OGVmNTEzODQxYjYzMTRiYThhNTBmNGNiZmUxNCIsInN1YiI6IjYyODY0M2Y3ZTAwNGE2MDA1MDZhMThkNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.guN2CKwccgcwqn6Uac_rNDFIvsJ43QEu6lFvPgq4yAg
