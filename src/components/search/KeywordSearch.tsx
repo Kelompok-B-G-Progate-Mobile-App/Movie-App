@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { TextInput, View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { API_ACCESS_TOKEN } from '@env'
+import { useFocusEffect } from '@react-navigation/native'
 import type { Movie } from '../../types/app'
 import MovieItem from '../../components/movies/MovieItem'
 import { Ionicons } from '@expo/vector-icons'
 
-const KeywordSearch = (): JSX.Element => {
+function KeywordSearch(): JSX.Element {
     const [keyword, setKeyword] = useState<string>('')
     const [movies, setMovies] = useState<Movie[]>([])
 
@@ -28,6 +29,12 @@ const KeywordSearch = (): JSX.Element => {
             .catch((err) => console.error(err))
     }
 
+    useFocusEffect(
+        useCallback(() => {
+            setKeyword('')
+        }, [])
+    )
+
     return (
         <View>
             <View style={styles.searchContainer}>
@@ -38,7 +45,7 @@ const KeywordSearch = (): JSX.Element => {
                     onChangeText={setKeyword}
                     onSubmitEditing={handleSearch}
                 />
-                <TouchableOpacity style={styles.searchButton}>
+                <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
                     <Ionicons name="search-outline" size={24} color="black" />
                 </TouchableOpacity>
             </View>
