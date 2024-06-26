@@ -5,6 +5,7 @@ import React from 'react'
 import Search from '../screens/Search'
 import Favorite from '../screens/Favorite'
 import HomeStackNavigation from './HomeStackNavigation'
+import SearchStackNavigation from './SearchStackNavigator'
 
 const Tab = createBottomTabNavigator()
 
@@ -22,8 +23,8 @@ function BottomTabNavigation(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="SearchScreen"
+        component={SearchStackNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="search" size={28} color={color} />
