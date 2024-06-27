@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import KeywordSearch from '../components/search/KeywordSearch'
-import CategorySearch from '../components/search/CategorySearch'
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import KeywordSearch from '../components/search/KeywordSearch';
+import CategorySearch from '../components/search/CategorySearch';
 
-function Search():JSX.Element {
-  const [selectedBar, setSelectedBar] = useState<string>('keyword')
+function Search(): JSX.Element {
+  const [selectedBar, setSelectedBar] = useState<string>('keyword');
 
   return (
     <View style={styles.container}>
@@ -23,7 +23,7 @@ function Search():JSX.Element {
                 borderBottomRightRadius: index === 1 ? 100 : 0,
               }}
               onPress={() => {
-                setSelectedBar(item)
+                setSelectedBar(item);
               }}
             >
               <Text style={styles.topBarLabel}>{item}</Text>
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textTransform: 'capitalize',
   },
-})
+});
 
 export default Search;

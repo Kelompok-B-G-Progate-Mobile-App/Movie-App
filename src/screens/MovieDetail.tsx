@@ -40,11 +40,11 @@ function MovieDetail({ route }: any): JSX.Element {
   };
 
   // console.log(detailMovie);
-  const recomendations : MovieListProps = {
+  const recomendations: MovieListProps = {
     title: 'Recomendations',
     path: `/movie/${id}/recommendations`,
     coverType: 'poster',
-  }
+  };
   if (!detailMovie) {
     return (
       <View style={styles.containerLoading}>
@@ -86,7 +86,9 @@ function MovieDetail({ route }: any): JSX.Element {
         <View style={styles.rowInfoDetail}>
           <View style={styles.columnInfoDetail}>
             <Text style={styles.labelInfo}>Original Language</Text>
-            <Text style={styles.valueInfo}>{detailMovie.original_language}</Text>
+            <Text style={styles.valueInfo}>
+              {detailMovie.original_language}
+            </Text>
           </View>
           <View style={styles.columnInfoDetail}>
             <Text style={styles.labelInfo}>Popularity</Text>
@@ -96,7 +98,9 @@ function MovieDetail({ route }: any): JSX.Element {
         <View style={styles.rowInfoDetail}>
           <View style={styles.columnInfoDetail}>
             <Text style={styles.labelInfo}>Release Date</Text>
-            <Text style={styles.valueInfo}>{new Date(detailMovie.release_date).toDateString()}</Text>
+            <Text style={styles.valueInfo}>
+              {new Date(detailMovie.release_date).toDateString()}
+            </Text>
           </View>
           <View style={styles.columnInfoDetail}>
             <Text style={styles.labelInfo}>Vote Count</Text>
@@ -106,10 +110,10 @@ function MovieDetail({ route }: any): JSX.Element {
       </View>
       {/* List Rekomendasi Movie */}
       <MovieList
-          title={recomendations.title}
-          path={recomendations.path}
-          coverType={recomendations.coverType}
-          key={recomendations.title}
+        title={recomendations.title}
+        path={recomendations.path}
+        coverType={recomendations.coverType}
+        key={recomendations.title}
       />
     </ScrollView>
   );

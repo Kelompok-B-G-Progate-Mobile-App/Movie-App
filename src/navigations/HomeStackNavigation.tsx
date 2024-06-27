@@ -1,9 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React from 'react'
-import Home from '../screens/Home'
-import MovieDetail from '../screens/MovieDetail'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import Home from '../screens/Home';
+import MovieDetail from '../screens/MovieDetail';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
 function HomeStackNavigation(): JSX.Element {
   return (
@@ -20,7 +20,7 @@ function HomeStackNavigation(): JSX.Element {
       />
       <Stack.Screen name="MovieDetail" component={MovieDetail} />
     </Stack.Navigator>
-  )
+  );
 }
 
-export default HomeStackNavigation
+export default HomeStackNavigation;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { API_ACCESS_TOKEN } from '@env'
-import MovieItem from './MovieItem'
-import type { Movie, MovieListProps } from '../../types/app'
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { API_ACCESS_TOKEN } from '@env';
+import MovieItem from './MovieItem';
+import type { Movie, MovieListProps } from '../../types/app';
 
 const coverImageSize = {
   backdrop: {
@@ -13,34 +13,34 @@ const coverImageSize = {
     width: 100,
     height: 160,
   },
-}
+};
 
 function MovieList({ title, path, coverType }: MovieListProps): JSX.Element {
-  const [movies, setMovies] = useState<Movie[]>([])
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    getMovieList()
-  }, [])
+    getMovieList();
+  }, []);
 
   const getMovieList = (): void => {
-    const url = `https://api.themoviedb.org/3/${path}`
+    const url = `https://api.themoviedb.org/3/${path}`;
     const options = {
       method: 'GET',
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${API_ACCESS_TOKEN}`,
       },
-    }
+    };
 
     fetch(url, options)
       .then(async (response) => await response.json())
       .then((response) => {
-        setMovies(response.results)
+        setMovies(response.results);
       })
       .catch((errorResponse) => {
-        console.log(errorResponse)
-      })
-  }
+        console.log(errorResponse);
+      });
+  };
 
   // console.log(movies)
   return (
@@ -67,7 +67,7 @@ function MovieList({ title, path, coverType }: MovieListProps): JSX.Element {
         keyExtractor={(item) => item.id.toString()}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
     marginTop: 8,
   },
-})
+});
 
-export default MovieList
+export default MovieList;
