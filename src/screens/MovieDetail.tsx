@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Button,
   ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import type { Movie } from '../types/app';
+import type { Movie, MovieListProps } from '../types/app';
 import { API_ACCESS_TOKEN } from '@env';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
+import MovieList from '../components/movies/MovieList';
 
 function MovieDetail({ route }: any): JSX.Element {
   const { id } = route.params;
@@ -39,7 +39,12 @@ function MovieDetail({ route }: any): JSX.Element {
       });
   };
 
-  console.log(detailMovie);
+  // console.log(detailMovie);
+  const recomendations : MovieListProps = {
+    title: 'Recomendations',
+    path: `/movie/${id}/recommendations`,
+    coverType: 'poster',
+  }
   if (!detailMovie) {
     return (
       <View style={styles.containerLoading}>
@@ -99,6 +104,13 @@ function MovieDetail({ route }: any): JSX.Element {
           </View>
         </View>
       </View>
+      {/* List Rekomendasi Movie */}
+      <MovieList
+          title={recomendations.title}
+          path={recomendations.path}
+          coverType={recomendations.coverType}
+          key={recomendations.title}
+      />
     </ScrollView>
   );
 }
