@@ -1,13 +1,25 @@
-import React from 'react'
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
-
-import { LinearGradient } from 'expo-linear-gradient'
-import { FontAwesome } from '@expo/vector-icons'
-import type { MovieItemProps } from '../../types/app'
+import React from 'react';
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useNavigation, StackActions } from '@react-navigation/native';
+import type { MovieItemProps } from '../../types/app';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome } from '@expo/vector-icons';
 
 function MovieItem({ movie, size, coverType }: MovieItemProps): JSX.Element {
+  const navigation = useNavigation();
+  const pushAction = StackActions.push('MovieDetail', { id: movie.id });
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.dispatch(pushAction);
+      }}
+    >
       <ImageBackground
         resizeMode="cover"
         style={[size, styles.backgroundImage]}
@@ -30,8 +42,8 @@ function MovieItem({ movie, size, coverType }: MovieItemProps): JSX.Element {
           </View>
         </LinearGradient>
       </ImageBackground>
-    </View>
-  )
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -61,6 +73,6 @@ const styles = StyleSheet.create({
     color: 'yellow',
     fontWeight: '700',
   },
-})
+});
 
-export default MovieItem
+export default MovieItem;

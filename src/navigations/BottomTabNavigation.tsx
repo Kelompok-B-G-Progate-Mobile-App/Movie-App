@@ -1,13 +1,13 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Feather } from '@expo/vector-icons'
-import React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Feather } from '@expo/vector-icons';
+import React from 'react';
 // import Home from '../screens/Home'
-import Search from '../screens/Search'
-import Favorite from '../screens/Favorite'
-import HomeStackNavigation from './HomeStackNavigation'
-import SearchStackNavigation from './SearchStackNavigator'
+import Search from '../screens/Search';
+import Favorite from '../screens/Favorite';
+import HomeStackNavigation from './HomeStackNavigation';
+import SearchStackNavigation from './SearchStackNavigator';
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 function BottomTabNavigation(): JSX.Element {
   return (
@@ -43,7 +43,7 @@ function BottomTabNavigation(): JSX.Element {
         }}
       />
     </Tab.Navigator>
-  )
+  );
 }
 
-export default BottomTabNavigation
+export default BottomTabNavigation;

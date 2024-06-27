@@ -12,23 +12,23 @@ export default [
       parser: tsParser,
       parserOptions: {
         ecmaFeatures: { jsx: true },
-        project: './tsconfig.json'
+        project: './tsconfig.json',
       },
       globals: globals.browser,
     },
     settings: {
       react: {
-        version: 'detect'
-      }
+        version: 'detect',
+      },
     },
     plugins: {
       '@typescript-eslint': tseslint,
-      'react': reactPlugin
+      react: reactPlugin,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
       ...pluginReactConfig.rules,
-      ...prettierConfig.rules 
-    }
-  }
+      ...prettierConfig.rules,
+    },
+  },
 ];
