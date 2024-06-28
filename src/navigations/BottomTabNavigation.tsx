@@ -6,6 +6,7 @@ import Search from '../screens/Search';
 import Favorite from '../screens/Favorite';
 import HomeStackNavigation from './HomeStackNavigation';
 import SearchStackNavigation from './SearchStackNavigator';
+import FavoriteStackNavigation from './FavoriteStackNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ function BottomTabNavigation(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="SearchScreen"
+        name="Search"
         component={SearchStackNavigation}
         options={{
           tabBarIcon: ({ color }) => (
@@ -34,7 +35,7 @@ function BottomTabNavigation(): JSX.Element {
       />
       <Tab.Screen
         name="Favorite"
-        component={Favorite}
+        component={FavoriteStackNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="heart" size={28} color={color} />
