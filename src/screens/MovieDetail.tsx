@@ -6,21 +6,83 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import type { Movie, MovieListProps } from '../types/app';
+import type { Movie } from '../types/app';
 import { API_ACCESS_TOKEN } from '@env';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import MovieList from '../components/movies/MovieList';
 
 function MovieDetail({ route }: any): JSX.Element {
+  const [detailMovie, setDetailMovie] = useState<Movie>();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const checkFavorite = async (id: number): Promise<void> => {
+    try {
+      const initialData: string | null = await AsyncStorage.getItem("@FavoriteList");
+      let favMovieList: Movie[] = [];
+
+      if (initialData !== null) {
+        favMovieList = JSON.parse(initialData);
+      }
+      if (favMovieList.some((item) => id === item.id)) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addFavorite = async (movie: Movie): Promise<void> => {
+    try {
+      let initialData: string | null = await AsyncStorage.getItem("@FavoriteList");
+      let favMovieList: Movie[] = [];
+
+      if (initialData !== null) {
+        favMovieList = [...JSON.parse(initialData), movie];
+      } else {
+        favMovieList = [movie];
+      }
+
+      await AsyncStorage.setItem("@FavoriteList", JSON.stringify(favMovieList));
+      setIsFavorite(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeFavorite = async (id: number): Promise<void> => {
+    try {
+      let initialData: string | null = await AsyncStorage.getItem("@FavoriteList");
+      let favMovieList: Movie[] = [];
+
+      if (initialData !== null) {
+        favMovieList = JSON.parse(initialData);
+      }
+      const newMovieList = favMovieList.filter((item) => item.id !== id);
+      await AsyncStorage.setItem("@FavoriteList", JSON.stringify(newMovieList));
+      setIsFavorite(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const { id } = route.params;
-  const [detailMovie, setDetailMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     getDetailMovie();
   }, []);
+
+  useEffect(() => {
+    if (detailMovie) {
+      checkFavorite(detailMovie.id);
+    }
+  }, [detailMovie]);
 
   const getDetailMovie = (): void => {
     const url = `https://api.themoviedb.org/3/movie/${id}`;
@@ -39,12 +101,6 @@ function MovieDetail({ route }: any): JSX.Element {
       });
   };
 
-  // console.log(detailMovie);
-  const recomendations: MovieListProps = {
-    title: 'Recomendations',
-    path: `/movie/${id}/recommendations`,
-    coverType: 'poster',
-  };
   if (!detailMovie) {
     return (
       <View style={styles.containerLoading}>
@@ -74,6 +130,24 @@ function MovieDetail({ route }: any): JSX.Element {
                 {detailMovie.vote_average.toFixed(1)}
               </Text>
             </View>
+            <TouchableOpacity
+              onPress={() => {
+                if (detailMovie) {
+                  if (isFavorite) {
+                    removeFavorite(detailMovie.id);
+                  } else {
+                    addFavorite(detailMovie);
+                  }
+                }
+              }}
+              style={styles.favoriteIcon}
+            >
+              <FontAwesome 
+                name={isFavorite ? "heart" : "heart-o"}
+                size={25}
+                color="red"
+              />
+            </TouchableOpacity>
           </LinearGradient>
         </ImageBackground>
       ) : (
@@ -107,14 +181,12 @@ function MovieDetail({ route }: any): JSX.Element {
             <Text style={styles.valueInfo}>{detailMovie.vote_count}</Text>
           </View>
         </View>
+        <MovieList
+          title={"Recommendations"}
+          path={`movie/${id}/recommendations`}
+          coverType={"poster"}
+        />
       </View>
-      {/* List Rekomendasi Movie */}
-      <MovieList
-        title={recomendations.title}
-        path={recomendations.path}
-        coverType={recomendations.coverType}
-        key={recomendations.title}
-      />
     </ScrollView>
   );
 }
@@ -134,6 +206,7 @@ const styles = StyleSheet.create({
     height: 220,
   },
   gradient: {
+    position: 'relative',
     display: 'flex',
     justifyContent: 'flex-end',
     width: '100%',
@@ -190,6 +263,11 @@ const styles = StyleSheet.create({
   },
   valueInfo: {
     fontSize: 14,
+  },
+  favoriteIcon: {
+    position: 'absolute',
+    bottom: 16,
+    right: 16,
   },
 });
 
