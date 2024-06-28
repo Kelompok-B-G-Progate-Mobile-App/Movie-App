@@ -46,11 +46,6 @@ export interface MovieItemProps {
   coverType: 'poster' | 'backdrop';
 }
 
-export type RootStackParamList = {
-  CategorySearch: undefined;
-  CategorySearchResult: { genreId: number };
-};
-
 export interface Genre {
   id: number;
   name: string;
