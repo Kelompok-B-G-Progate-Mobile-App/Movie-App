@@ -3,14 +3,15 @@ import React from 'react';
 import CategorySearch from '../screens/CategorySearchResult';
 import CategorySearchResult from '../screens/CategorySearchResult';
 import Search from '../screens/Search';
+import MovieDetail from '../screens/MovieDetail';
 
 const Stack = createNativeStackNavigator();
 
 function SearchStackNavigation(): JSX.Element {
   return (
-    <Stack.Navigator initialRouteName="Search">
+    <Stack.Navigator initialRouteName="SearchScreen">
       <Stack.Screen
-        name="Search"
+        name="SearchScreen"
         component={Search}
         options={{ headerShown: false }}
       />
@@ -24,6 +25,7 @@ function SearchStackNavigation(): JSX.Element {
           headerBackTitle: 'Back',
         }}
       />
+      <Stack.Screen name="MovieDetail" component={MovieDetail} />
     </Stack.Navigator>
   );
 }
