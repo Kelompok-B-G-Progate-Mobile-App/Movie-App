@@ -4,16 +4,9 @@ import { useRoute, RouteProp } from '@react-navigation/native';
 import { API_ACCESS_TOKEN } from '@env';
 import MovieItem from '../components/movies/MovieItem';
 import type { Movie } from '../types/app';
-import { RootStackParamList } from '../types/app';
 
-type CategorySearchResultRouteProp = RouteProp<
-  RootStackParamList,
-  'CategorySearchResult'
->;
-
-const CategorySearchResult = (): JSX.Element => {
+const CategorySearchResult = ({ route }: any): JSX.Element => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const route = useRoute<CategorySearchResultRouteProp>();
   const { genreId } = route.params;
 
   useEffect(() => {
@@ -48,7 +41,7 @@ const CategorySearchResult = (): JSX.Element => {
         renderItem={({ item }) => (
           <MovieItem
             movie={item}
-            size={{ width: 125, height: 180 }}
+            size={{ width: 115, height: 170 }}
             coverType="poster"
           />
         )}
@@ -64,8 +57,8 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   row: {
-    justifyContent: 'space-between',
-    marginBottom: 16,
+    justifyContent: 'center',
+    marginBottom: 15,
   },
 });
 
