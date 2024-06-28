@@ -62,7 +62,7 @@ function KeywordSearch(): JSX.Element {
         renderItem={({ item }) => (
           <MovieItem
             movie={item}
-            size={{ width: 125, height: 180 }}
+            size={{ width: 115, height: 170 }}
             coverType="poster"
           />
         )}
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   row: {
-    justifyContent: 'space-between',
-    marginBottom: 16,
+    justifyContent: 'center',
+    marginBottom: 15,
   },
   searchContainer: {
     flexDirection: 'row',

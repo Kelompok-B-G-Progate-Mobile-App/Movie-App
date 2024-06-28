@@ -6,21 +6,14 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/app';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import { API_ACCESS_TOKEN } from '@env';
 import type { Genre } from '../../types/app';
-
-type NavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'CategorySearchResult'
->;
 
 const CategorySearch = (): JSX.Element => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -47,9 +40,9 @@ const CategorySearch = (): JSX.Element => {
 
   const handleSearch = () => {
     if (selectedGenre) {
-      navigation.navigate('CategorySearchResult', {
+      navigation.dispatch(StackActions.push('CategorySearchResult', {
         genreId: selectedGenre.id,
-      });
+      }));
     }
   };
 
@@ -91,7 +84,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     flex: 1,
-    height: 50,
+    height: 40,
     marginHorizontal: 8,
   },
   genreLabel: {
@@ -106,6 +99,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     marginVertical: 16,
+    marginBottom: 20,
   },
   searchButtonText: {
     color: 'white',
@@ -114,7 +108,7 @@ const styles = StyleSheet.create({
   },
   row: {
     justifyContent: 'space-between',
-    marginVertical: 8,
+    marginVertical: 5,
   },
 });
 
