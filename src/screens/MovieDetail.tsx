@@ -13,16 +13,17 @@ import type { Movie } from '../types/app';
 import { API_ACCESS_TOKEN } from '@env';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MovieList from '../components/movies/MovieList';
 
 function MovieDetail({ route }: any): JSX.Element {
   const [detailMovie, setDetailMovie] = useState<Movie>();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const checkFavorite = async (id: number): Promise<void> => {
     try {
-      const initialData: string | null = await AsyncStorage.getItem("@FavoriteList");
+      const initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList');
       let favMovieList: Movie[] = [];
 
       if (initialData !== null) {
@@ -40,7 +41,8 @@ function MovieDetail({ route }: any): JSX.Element {
 
   const addFavorite = async (movie: Movie): Promise<void> => {
     try {
-      let initialData: string | null = await AsyncStorage.getItem("@FavoriteList");
+      let initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList');
       let favMovieList: Movie[] = [];
 
       if (initialData !== null) {
@@ -49,7 +51,7 @@ function MovieDetail({ route }: any): JSX.Element {
         favMovieList = [movie];
       }
 
-      await AsyncStorage.setItem("@FavoriteList", JSON.stringify(favMovieList));
+      await AsyncStorage.setItem('@FavoriteList', JSON.stringify(favMovieList));
       setIsFavorite(true);
     } catch (error) {
       console.log(error);
@@ -58,14 +60,15 @@ function MovieDetail({ route }: any): JSX.Element {
 
   const removeFavorite = async (id: number): Promise<void> => {
     try {
-      let initialData: string | null = await AsyncStorage.getItem("@FavoriteList");
+      let initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList');
       let favMovieList: Movie[] = [];
 
       if (initialData !== null) {
         favMovieList = JSON.parse(initialData);
       }
       const newMovieList = favMovieList.filter((item) => item.id !== id);
-      await AsyncStorage.setItem("@FavoriteList", JSON.stringify(newMovieList));
+      await AsyncStorage.setItem('@FavoriteList', JSON.stringify(newMovieList));
       setIsFavorite(false);
     } catch (error) {
       console.log(error);
@@ -84,7 +87,7 @@ function MovieDetail({ route }: any): JSX.Element {
     }
   }, [detailMovie]);
 
-  const getDetailMovie = (): void => {
+  const getDetailMovie = async (): Promise<void> => {
     const url = `https://api.themoviedb.org/3/movie/${id}`;
     const options = {
       method: 'GET',
@@ -94,11 +97,13 @@ function MovieDetail({ route }: any): JSX.Element {
       },
     };
 
-    fetch(url, options)
-      .then(async (response) => await response.json())
-      .then((data) => {
-        setDetailMovie(data);
-      });
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setDetailMovie(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (!detailMovie) {
@@ -142,8 +147,8 @@ function MovieDetail({ route }: any): JSX.Element {
               }}
               style={styles.favoriteIcon}
             >
-              <FontAwesome 
-                name={isFavorite ? "heart" : "heart-o"}
+              <FontAwesome
+                name={isFavorite ? 'heart' : 'heart-o'}
                 size={25}
                 color="red"
               />
@@ -182,9 +187,9 @@ function MovieDetail({ route }: any): JSX.Element {
           </View>
         </View>
         <MovieList
-          title={"Recommendations"}
+          title={'Recommendations'}
           path={`movie/${id}/recommendations`}
-          coverType={"poster"}
+          coverType={'poster'}
         />
       </View>
     </ScrollView>

@@ -22,7 +22,7 @@ function MovieList({ title, path, coverType }: MovieListProps): JSX.Element {
     getMovieList();
   }, []);
 
-  const getMovieList = (): void => {
+  const getMovieList = async (): Promise<void> => {
     const url = `https://api.themoviedb.org/3/${path}`;
     const options = {
       method: 'GET',
@@ -32,14 +32,13 @@ function MovieList({ title, path, coverType }: MovieListProps): JSX.Element {
       },
     };
 
-    fetch(url, options)
-      .then(async (response) => await response.json())
-      .then((response) => {
-        setMovies(response.results);
-      })
-      .catch((errorResponse) => {
-        console.log(errorResponse);
-      });
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setMovies(data.results);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // console.log(movies)
