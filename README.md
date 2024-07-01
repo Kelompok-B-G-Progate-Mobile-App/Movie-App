@@ -1,3 +1,18 @@
+## Kelompok B - Kelas G Progate Mobile React Native
+
+### Anggota:
+1. Ghozi Izzulhaq
+2. Silvia Prada Aprilia
+3. Fuadz Misbahul Amin (tidak aktif)
+4. Hakkan Syukri (tidak aktif)
+5. Arif Rachman (tidak aktif)
+
+### Jobdesk:
+1. Home - Ghozi I (Done)
+2. Detail Movie - Ghozi I (Done)
+3. Search - Silvia P (Done)
+4. Favorite - Silvia P (Done)
+
 ## How to run in your local machine
 
 1. Clone the repository
